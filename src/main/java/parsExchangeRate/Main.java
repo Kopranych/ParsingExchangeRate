@@ -29,9 +29,11 @@ public class Main {
 			
 			Document doc = parser.getPage(urlAdress);
 			Element dateHeader = parser.getElement(doc, dateHeaderParagraph );
+			Elements timeElementBold = dateHeader.select("b");
 			Element currencysParagraph = parser.getElement(doc, currencyQvery);
 			Elements currencys = currencysParagraph.select(currencyQveryElements);
 			
+			exchanger.setTime(timeElementBold.text());
 			exchanger.setDate(parser.getDateFromString(dateHeader.text()));
 			exchanger.setUSD(parser.getCurrencyFromString(currencys.get(indexUSD).text()));
 			exchanger.setEUR(parser.getCurrencyFromString(currencys.get(indexEUR).text()));

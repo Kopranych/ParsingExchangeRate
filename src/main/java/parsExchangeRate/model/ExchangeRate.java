@@ -2,6 +2,7 @@ package parsExchangeRate.model;
 
 public class ExchangeRate {
 	private String date;
+	private String time;
 	private double USD;
 	private double EUR;
 	
@@ -25,11 +26,19 @@ public class ExchangeRate {
 		EUR = eUR;
 	}
 	
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
+		
 	public void printExchangeRate() {
-		System.out.println("Дата       " + "USD      " + "EUR ");
+		System.out.println("Время   Дата       " + "USD      " + "EUR ");
+		System.out.print(time + "   ");
 		System.out.print(date + "   ");
 		System.out.print(USD + "    ");
 		System.out.println(EUR);
 	}
-	
+		
 }
