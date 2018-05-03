@@ -21,8 +21,9 @@ public class Parser {
 	private Document page;
 	private static final int TIME_WAIT = 8000;
 	private Element element;
-	private static final String regulExpression = "\\d{2}\\.\\d{2}\\.\\d{2}";
-	private Pattern timePattern = Pattern.compile(regulExpression);
+	private static final String regulExpressionForDate = "\\d{2}\\.\\d{2}\\.\\d{2}";
+	private static final String regulExpressionForCurrency = "\\d{2}\\.\\d{2}";
+	
 	
 	/**
      * Конструктор для создания нового объекта Parser
@@ -44,19 +45,29 @@ public class Parser {
 	}
 	
 	
-	public Element getElement() {
+	public Element getElement(Document page, String qvery) throws Exception {
 		if(!page.equals(null)) {
-			return element = page.select("p").first();
+			return element = page.select(qvery).first();
 		}
-		return null;
+		throw new Exception("Нет элементов");
 	}
 	
-	public String getDate(String stringDate) {
+	public String getDateFromString(String stringDate) throws Exception {
+		Pattern timePattern = Pattern.compile(regulExpressionForDate);
 		Matcher matcher = timePattern.matcher(stringDate);
 		if(matcher.find()) {//если нашел 
 			return matcher.group();
 		}
-		return null;
+		throw new Exception("Нет данных");
+	}
+	
+	public double getCurrencyFromString(String stringCurrency) throws Exception {
+		Pattern timePattern = Pattern.compile(regulExpressionForCurrency);
+		Matcher matcher = timePattern.matcher(stringCurrency);
+		if(matcher.find()) {//если нашел 
+			return Double.parseDouble(matcher.group());
+		}
+		throw new Exception("Нет данных");
 	}
 
 	
