@@ -1,6 +1,10 @@
 package parsExchangeRate.model;
 
+
+import java.util.Date;
+
 public class ExchangeRate {
+	private Date currentDate;
 	private String date;
 	private String time;
 	private double USD;
@@ -10,18 +14,31 @@ public class ExchangeRate {
 	public String getDate() {
 		return date;
 	}
+	
 	public void setDate(String date) {
 		this.date = date;
 	}
+	
+	public Date getCurrentDate() {
+		return currentDate = new Date();
+	}
+
+	public void setCurrentDate(Date currentDate) {
+		this.currentDate = currentDate;
+	}
+
 	public double getUSD() {
 		return USD;
 	}
+	
 	public void setUSD(double uSD) {
 		USD = uSD;
 	}
+	
 	public double getEUR() {
 		return EUR;
 	}
+	
 	public void setEUR(double eUR) {
 		EUR = eUR;
 	}
@@ -29,6 +46,7 @@ public class ExchangeRate {
 	public String getTime() {
 		return time;
 	}
+	
 	public void setTime(String time) {
 		this.time = time;
 	}

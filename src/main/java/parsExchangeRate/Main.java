@@ -2,11 +2,16 @@ package parsExchangeRate;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import parsExchangeRate.dbService.DBService;
 import parsExchangeRate.model.ConstParser;
 import parsExchangeRate.model.ExchangeRate;
 import parsExchangeRate.parser.Parser;
@@ -17,6 +22,8 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		DBService service = new DBService();
+		service.printConnectInfo();
 		ExchangeRate exchanger = new ExchangeRate();
 		
 		
@@ -34,7 +41,7 @@ public class Main {
 			exchanger.setUSD(parser.getCurrencyFromString(currencys.get(ConstParser.getIndexUSD()).text()));
 			exchanger.setEUR(parser.getCurrencyFromString(currencys.get(ConstParser.getIndexEUR()).text()));
 			exchanger.printExchangeRate();
-			
+			service.addExchangeRate(exchanger.getCurrentDate(),exchanger.getDate(), exchanger.getTime(),  exchanger.getUSD(), exchanger.getEUR());
 			
 			
 		}catch(MalformedURLException e) {

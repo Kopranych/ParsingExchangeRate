@@ -8,6 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import java.util.Date;
+
 
 @Entity
 @Table(name = "exchangerate")
@@ -19,12 +24,16 @@ public class ExchangeRateDataSet implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @Column(name = "date", unique = false, updatable = false)
-    private String date;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "systemdate", unique = false, updatable = false)
+    private Date systemDate;
     
     @Column(name = "time", unique = false, updatable = false)
     private String time;
+    
+    @Column(name = "date", unique = false, updatable = false)
+    private String date;
     
     @Column(name = "usd", unique = false, updatable = false)
     private double usd;
@@ -37,25 +46,14 @@ public class ExchangeRateDataSet implements Serializable {
     public ExchangeRateDataSet() {
     }
 
-   
     
-
-    @Override
-    public String toString() {
-        return "ExchangeRateDataSet{" +
-                "id=" + id +
-                ", time='" + time + '\'' +
-                ", date='" + date + '\'' +
-                ", usd='" + usd + '\'' +
-                ", eur='" + eur + '\'' +
-                '}';
-    }
     
     
 	@SuppressWarnings("unused")
-	private ExchangeRateDataSet(long id, String date, String time, double usd, double eur) {
+	public ExchangeRateDataSet(long id, Date systemDate, String date, String time, double usd, double eur) {
 		super();
 		this.id = id;
+		this.systemDate = systemDate;
 		this.date = date;
 		this.time = time;
 		this.usd = usd;
@@ -64,9 +62,10 @@ public class ExchangeRateDataSet implements Serializable {
     
 
 	@SuppressWarnings("unused")
-	private ExchangeRateDataSet(String date, String time, double usd, double eur) {
+	public ExchangeRateDataSet(Date systemDate, String date, String time,  double usd, double eur) {
 		super();
 		this.id = -1;
+		this.systemDate = systemDate;
 		this.date = date;
 		this.time = time;
 		this.usd = usd;
@@ -98,6 +97,14 @@ public class ExchangeRateDataSet implements Serializable {
 		this.time = time;
 	}
 
+	public Date getSystemDate() {
+		return systemDate;
+	}
+
+	public void setSystemDate(Date systemDate) {
+		this.systemDate = systemDate;
+	}
+
 	public double getUsd() {
 		return usd;
 	}
@@ -114,5 +121,15 @@ public class ExchangeRateDataSet implements Serializable {
 		this.eur = eur;
 	}
 
+	@Override
+    public String toString() {
+        return "ExchangeRateDataSet{" +
+                "id=" + id +
+                ", time='" + time + '\'' +
+                ", date='" + date + '\'' +
+                ", usd='" + usd + '\'' +
+                ", eur='" + eur + '\'' +
+                '}';
+    }
 	
 }
