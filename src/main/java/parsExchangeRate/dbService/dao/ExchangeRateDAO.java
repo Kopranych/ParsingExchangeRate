@@ -1,6 +1,7 @@
 package parsExchangeRate.dbService.dao;
 
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -19,6 +20,10 @@ public class ExchangeRateDAO {
 
     public ExchangeRateDataSet get(long id) throws HibernateException {
         return (ExchangeRateDataSet) session.get(ExchangeRateDataSet.class, id);
+    }
+    
+    public List<ExchangeRateDataSet> getList(){
+    	return (List<ExchangeRateDataSet>)session.createCriteria(ExchangeRateDataSet.class).list();
     }
 
     public long getExchangeRateId(String usd) throws HibernateException {

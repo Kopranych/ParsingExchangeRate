@@ -2,6 +2,7 @@ package parsExchangeRate.dbService;
 
 import java.sql.Connection;
 import java.util.Date;
+import java.util.List;
 import java.sql.SQLException;
 
 import org.hibernate.HibernateException;
@@ -18,7 +19,7 @@ import parsExchangeRate.dbService.dataSet.ExchangeRateDataSet;
 
 public class DBService {
 	private static final String hibernate_show_sql = "true";
-    private static final String hibernate_hbm2ddl_auto = "update";
+    private static final String hibernate_hbm2ddl_auto = "validate";
 
     private final SessionFactory sessionFactory;
 
@@ -50,6 +51,18 @@ public class DBService {
             ExchangeRateDataSet dataSet = dao.get(id);
             session.close();
             return dataSet;
+        } catch (HibernateException e) {
+            throw new DBException(e);
+        }
+    }
+    
+    public List<ExchangeRateDataSet> getExchangeRateList() throws DBException {
+    	try {
+            Session session = sessionFactory.openSession();
+            ExchangeRateDAO dao = new ExchangeRateDAO(session);
+            List<ExchangeRateDataSet> dataSetList = dao.getList();
+            session.close();
+            return dataSetList;
         } catch (HibernateException e) {
             throw new DBException(e);
         }
