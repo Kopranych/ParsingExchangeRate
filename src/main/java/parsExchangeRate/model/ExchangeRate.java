@@ -52,6 +52,7 @@ public class ExchangeRate {
 	}
 		
 	public void printExchangeRate() {
+		System.out.println("Текущее время " + getCurrentDate());
 		System.out.println("Время   Дата       " + "USD      " + "EUR ");
 		System.out.print(time + "   ");
 		System.out.print(date + "   ");

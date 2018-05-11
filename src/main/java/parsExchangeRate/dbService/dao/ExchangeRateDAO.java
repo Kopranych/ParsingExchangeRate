@@ -1,5 +1,6 @@
 package parsExchangeRate.dbService.dao;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -22,8 +23,9 @@ public class ExchangeRateDAO {
         return (ExchangeRateDataSet) session.get(ExchangeRateDataSet.class, id);
     }
     
-    public List<ExchangeRateDataSet> getList(){
-    	return (List<ExchangeRateDataSet>)session.createCriteria(ExchangeRateDataSet.class).list();
+    public Collection<ExchangeRateDataSet> getList(){
+    	Criteria criteria = session.createCriteria(ExchangeRateDataSet.class);
+    	return (Collection<ExchangeRateDataSet>)criteria.list();
     }
 
     public long getExchangeRateId(String usd) throws HibernateException {
@@ -34,9 +36,5 @@ public class ExchangeRateDAO {
     public long inserExchangeRate(Date systemDate,String time, String date, double usd, double eur) throws HibernateException {
         return (Long) session.save(new ExchangeRateDataSet(systemDate, time, date, usd, eur));
     }
-//    
-//    public List<ExchangeRateDataSet> getExchengeRateAll(){
-//    	
-//    }
-    
+
 }

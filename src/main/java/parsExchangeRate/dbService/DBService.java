@@ -18,7 +18,7 @@ import parsExchangeRate.dbService.dao.ExchangeRateDAO;
 import parsExchangeRate.dbService.dataSet.ExchangeRateDataSet;
 
 public class DBService {
-	private static final String hibernate_show_sql = "true";
+	private static final String hibernate_show_sql = "false";
     private static final String hibernate_hbm2ddl_auto = "validate";
 
     private final SessionFactory sessionFactory;
@@ -45,41 +45,56 @@ public class DBService {
     }
     
     public ExchangeRateDataSet getExchangeRateById(long id) throws DBException {
+    	Session session = null;
+    	ExchangeRateDataSet dataSet;
         try {
-            Session session = sessionFactory.openSession();
+        	session = sessionFactory.openSession();
             ExchangeRateDAO dao = new ExchangeRateDAO(session);
-            ExchangeRateDataSet dataSet = dao.get(id);
-            session.close();
-            return dataSet;
+            dataSet = dao.get(id);
+         
         } catch (HibernateException e) {
             throw new DBException(e);
+        }finally {
+        	if(session != null&& session.isOpen()) {
+        		session.close();
+        	}
         }
+        return dataSet;
     }
     
     public List<ExchangeRateDataSet> getExchangeRateList() throws DBException {
+    	Session session = null;
+    	List<ExchangeRateDataSet> dataSetList;
     	try {
-            Session session = sessionFactory.openSession();
+            session = sessionFactory.openSession();
             ExchangeRateDAO dao = new ExchangeRateDAO(session);
-            List<ExchangeRateDataSet> dataSetList = dao.getList();
-            session.close();
-            return dataSetList;
+            dataSetList = (List<ExchangeRateDataSet>) dao.getList();
+            
+            
         } catch (HibernateException e) {
             throw new DBException(e);
+        }finally{
+        	session.close();
         }
+    	return dataSetList;
     }
 
     public long addExchangeRate(Date systemDate, String time, String date, double usd, double eur) throws DBException {
-        try {
-            Session session = sessionFactory.openSession();
+    	Session session = null;
+    	long id;
+    	try {
+            session = sessionFactory.openSession();
             Transaction transaction = session.beginTransaction();
             ExchangeRateDAO dao = new ExchangeRateDAO(session);
-            long id = dao.inserExchangeRate(systemDate, time, date, usd, eur);
+            id = dao.inserExchangeRate(systemDate, time, date, usd, eur);
             transaction.commit();
-            session.close();
-            return id;
+            
         } catch (HibernateException e) {
             throw new DBException(e);
+        }finally {
+        	session.close();
         }
+    	return id;
     }
 
     public void printConnectInfo() {

@@ -12,8 +12,13 @@ public class ConstParser {
 	private static final String timeTegBold = "b";
 	private static final int indexUSD = 0;
 	private static final int indexEUR = 1;
+	private static final long timeout = 600_000L;
 	
 	
+	public static long getTimeout() {
+		return timeout;
+	}
+
 	public static String getUrlAdress() {
 		return urlAdress;
 	}
