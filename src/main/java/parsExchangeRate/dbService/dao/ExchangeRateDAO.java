@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -26,6 +27,12 @@ public class ExchangeRateDAO {
     public Collection<ExchangeRateDataSet> getList(){
     	Criteria criteria = session.createCriteria(ExchangeRateDataSet.class);
     	return (Collection<ExchangeRateDataSet>)criteria.list();
+    }
+    
+    @SuppressWarnings("unchecked")
+	public Collection<ExchangeRateDataSet> getRangeId(long firstId, long secondId){
+    	Criteria criteria = session.createCriteria(ExchangeRateDataSet.class);
+    	return (Collection<ExchangeRateDataSet>)criteria.add(Restrictions.between("id", firstId, secondId)).list();
     }
 
     public long getExchangeRateId(String usd) throws HibernateException {

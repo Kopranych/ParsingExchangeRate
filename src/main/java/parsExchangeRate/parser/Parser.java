@@ -37,6 +37,7 @@ public class Parser {
      * Метод который запрашивает необходимую страницу по адресу в интернете
      *
      * @param Принеимает строку с адресом страницы которую необходимо получить
+     * TIME_WAIT - время ожидания ответа от страницы
      * @throws MalformedURLException, IOException
      * @return возвращает нужную страницу в виде Document page 
      */
@@ -44,7 +45,13 @@ public class Parser {
 		return page = Jsoup.parse(new URL(url),TIME_WAIT);
 	}
 	
-	
+	/**
+     * разбирает страницу по нужному тегу запрашивает необходимую страницу по адресу в интернете
+     *
+     * @param Принеимает страницу page, и qvery - тег по которому разбирать страницу
+     * @throws Exception
+     * @return возвращает нужный кусок сраницы в виде Element element
+     */
 	public Element getElement(Document page, String qvery) throws Exception {
 		if(!page.equals(null)) {
 			return element = page.select(qvery).first();
@@ -52,6 +59,13 @@ public class Parser {
 		throw new Exception("Нет элементов");
 	}
 	
+	/**
+     * разбирает строку содержащую дату через регулярное выражение regulExpressionForDate
+     *
+     * @param Принеимает строку String stringDate
+     * @throws Exception
+     * @return возвращает строку String с датой
+     */
 	public String getDateFromString(String stringDate) throws Exception {
 		Pattern timePattern = Pattern.compile(regulExpressionForDate);
 		Matcher matcher = timePattern.matcher(stringDate);
@@ -61,6 +75,13 @@ public class Parser {
 		throw new Exception("Нет данных");
 	}
 	
+	/**
+     * разбирает строку содержащую данные о валюте через регулярное выражение regulExpressionForCurrency
+     *
+     * @param Принеимает строку String stringCurrency
+     * @throws Exception
+     * @return возвращает строку String с данными валюты
+     */
 	public double getCurrencyFromString(String stringCurrency) throws Exception {
 		Pattern timePattern = Pattern.compile(regulExpressionForCurrency);
 		Matcher matcher = timePattern.matcher(stringCurrency);

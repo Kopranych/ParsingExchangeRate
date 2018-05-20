@@ -62,6 +62,24 @@ public class DBService {
         return dataSet;
     }
     
+    public List<ExchangeRateDataSet> getExchangeRateListRange(long firstId, long secondId) throws DBException{
+    	Session session = null;
+    	List<ExchangeRateDataSet> dataSetList;
+        try {
+        	session = sessionFactory.openSession();
+            ExchangeRateDAO dao = new ExchangeRateDAO(session);
+            dataSetList = (List<ExchangeRateDataSet>)dao.getRangeId(firstId, secondId);
+         
+        } catch (HibernateException e) {
+            throw new DBException(e);
+        }finally {
+        	if(session != null&& session.isOpen()) {
+        		session.close();
+        	}
+        }
+        return dataSetList;
+    }
+    
     public List<ExchangeRateDataSet> getExchangeRateList() throws DBException {
     	Session session = null;
     	List<ExchangeRateDataSet> dataSetList;
@@ -74,7 +92,9 @@ public class DBService {
         } catch (HibernateException e) {
             throw new DBException(e);
         }finally{
-        	session.close();
+        	if(session != null&& session.isOpen()) {
+        		session.close();
+        	}
         }
     	return dataSetList;
     }
@@ -92,7 +112,9 @@ public class DBService {
         } catch (HibernateException e) {
             throw new DBException(e);
         }finally {
-        	session.close();
+        	if(session != null&& session.isOpen()) {
+        		session.close();
+        	}
         }
     	return id;
     }
