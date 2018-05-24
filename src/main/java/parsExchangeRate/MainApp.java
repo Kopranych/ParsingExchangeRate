@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import parsExchangeRate.view.interfaceController;
 
 public class MainApp extends Application {
 
@@ -55,6 +56,10 @@ public class MainApp extends Application {
 
             // Помещаем интерфейс в центр корневого макета.
             rootLayout.setCenter(interfaceApp);
+            
+            // Даём контроллеру доступ к главному приложению.
+            interfaceController controller = loader.getController();
+            controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }

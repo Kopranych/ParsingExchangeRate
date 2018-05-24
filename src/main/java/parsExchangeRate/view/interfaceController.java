@@ -2,7 +2,9 @@ package parsExchangeRate.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import parsExchangeRate.MainApp;
+import parsExchangeRate.model.ExchangeRate;
 
 public class interfaceController {
 
@@ -12,6 +14,12 @@ public class interfaceController {
     private Label EUR;
     @FXML
     private Label date;
+    @FXML
+    private TextArea usdArea;
+    @FXML
+    private TextArea eurArea;
+    @FXML
+    private TextArea dateArea;
    
     // Ссылка на главное приложение.
     private MainApp mainApp;
@@ -45,4 +53,11 @@ public class interfaceController {
         // Добавление в таблицу данных из наблюдаемого списка
 //        personTable.setItems(mainApp.getPersonData());
     }
+    
+    private void showExchangeRate(ExchangeRate exchanger) {
+    	usdArea.setText(Double.toString(exchanger.getUSD()));
+    	eurArea.setText(Double.toString(exchanger.getEUR()));
+    	dateArea.setText(exchanger.getCurrentDate().toString());
+    }
+    
 }
