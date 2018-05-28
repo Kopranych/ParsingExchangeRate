@@ -8,19 +8,20 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
 
 public class ExchangeRate {
-	private ObjectProperty<Date> currentDate;
-	private StringProperty date;
-	private StringProperty time;
-	private DoubleProperty USD;
-	private DoubleProperty EUR;
+	private Date currentDate;
+	private String date;
+	private String time;
+	private double USD;
+	private double EUR;
+	
 	
 	
 	public String getDate() {
-		return date.get();
+		return date;
 	}
 	
 	public void setDate(String date) {
-		this.date.set(date);
+		this.date = date;
 	}
 	
 	public Date getCurrentDate() {
@@ -28,40 +29,40 @@ public class ExchangeRate {
 	}
 
 	public void setCurrentDate(Date currentDate) {
-		this.currentDate.set(currentDate);
+		this.currentDate = currentDate;
 	}
 
 	public double getUSD() {
-		return USD.get();
+		return USD;
 	}
 	
 	public void setUSD(double uSD) {
-		USD.set(uSD);
+		USD = uSD;
 	}
 	
 	public double getEUR() {
-		return EUR.get();
+		return EUR;
 	}
 	
 	public void setEUR(double eUR) {
-		EUR.set(eUR);
+		EUR = eUR;
 	}
 	
 	public String getTime() {
-		return time.get();
+		return time;
 	}
 	
 	public void setTime(String time) {
-		this.time.set(time);
+		this.time = time;
 	}
 		
 	public void printExchangeRate() {
 		System.out.println("Текущее время " + getCurrentDate());
 		System.out.println("Время   Дата       " + "USD      " + "EUR ");
-		System.out.print(time.get()+ "   ");
-		System.out.print(date.get() + "   ");
-		System.out.print(USD.get() + "    ");
-		System.out.println(EUR.get());
+		System.out.print(time + "   ");
+		System.out.print(date + "   ");
+		System.out.print(USD + "    ");
+		System.out.println(EUR);
 	}
 		
 }

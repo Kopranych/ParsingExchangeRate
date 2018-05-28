@@ -6,7 +6,7 @@ import javafx.scene.control.TextArea;
 import parsExchangeRate.MainApp;
 import parsExchangeRate.model.ExchangeRate;
 
-public class interfaceController {
+public class InterfaceController {
 
     @FXML
     private Label USD;
@@ -28,7 +28,7 @@ public class interfaceController {
      * Конструктор.
      * Конструктор вызывается раньше метода initialize().
      */
-    public interfaceController() {
+    public InterfaceController() {
     }
 
     /**
@@ -54,7 +54,7 @@ public class interfaceController {
 //        personTable.setItems(mainApp.getPersonData());
     }
     
-    private void showExchangeRate(ExchangeRate exchanger) {
+    public void showExchangeRate(ExchangeRate exchanger) {
     	usdArea.setText(Double.toString(exchanger.getUSD()));
     	eurArea.setText(Double.toString(exchanger.getEUR()));
     	dateArea.setText(exchanger.getCurrentDate().toString());
