@@ -36,13 +36,16 @@ public class MainApp extends Application {
 
         InterfaceController controller = showFaceApp();
         currencyEngine = new CurrencyEngine(controller);
+        controller.setCurrencyEngene(currencyEngine);
         Thread myThread = new Thread(currencyEngine);
         myThread.start();
     }
     
     @Override
     public void stop() {
+    	currencyEngine.notify();
     	currencyEngine.stopCurrencyEngine();
+    	
     }
 
     /**
@@ -88,59 +91,6 @@ public class MainApp extends Application {
         return controller;
     }
 
-    public void currencyExchangeRateReceivingEngine(InterfaceController controller) {
-    	DBService service = new DBService();
-		service.printConnectInfo();
-		ExchangeRate exchanger = new ExchangeRate();
-		Parser parser = new Parser();
-		boolean isRun = true;
-		
-		
-		
-		while(isRun) {
-			
-				try {
-					//получаем веб страницу по getUrlAdress
-					Document doc = parser.getPage(ConstParser.getUrlAdress());
-					Element dateHeader = parser.getElement(doc, ConstParser.getDateHeaderParagraph() );//получаем кусок страницы с датой и временем
-					Elements timeElementBold = dateHeader.select(ConstParser.getTimeTegBold());//получаем время по тегу getTimeTegBold
-					Element currencysParagraph = parser.getElement(doc, ConstParser.getCurrencyQvery());//получаем общее данные по валютам по тегу getCurrencyQvery
-					Elements currencys = currencysParagraph.select(ConstParser.getCurrencyQveryElements());//получаем все элементы содержащие данные о валюте
-					//сохраняем полученные данные о валюте
-					exchanger.setTime(timeElementBold.text());
-					exchanger.setDate(parser.getDateFromString(dateHeader.text()));
-					//сохраняем USD и EUR по индексам элементов 
-					exchanger.setUSD(parser.getCurrencyFromString(currencys.get(ConstParser.getIndexUSD()).text()));
-					exchanger.setEUR(parser.getCurrencyFromString(currencys.get(ConstParser.getIndexEUR()).text()));
-					exchanger.printExchangeRate();//выводим данные в консоль для пользователя
-					//записываем курс валют в базу данных
-					long id = service.addExchangeRate(exchanger.getCurrentDate(),
-							exchanger.getDate(), exchanger.getTime(),  exchanger.getUSD(), exchanger.getEUR());
-					ExchangeRateDataSet exchangeRatePreview = service.getExchangeRateById(id - 1);
-					if(exchangeRatePreview.getUsd()>exchanger.getUSD()) {
-						System.out.println("Доллар опустился до " + exchanger.getUSD());
-					}else
-						if(exchangeRatePreview.getUsd()<exchanger.getUSD()) {
-							System.out.println("Доллар поднялся до " + exchanger.getUSD());
-						}
-						else {
-							System.out.println("Доллар не изменился " + exchanger.getUSD());
-						}
-					controller.showExchangeRate(exchanger);
-					Thread.sleep(ConstParser.getTimeout());
-					
-				}catch(MalformedURLException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					
-					e.printStackTrace();
-				} catch (Exception e) {
-					
-					e.printStackTrace();
-				}
-			
-		}
-    }
     
     /**
      * Возвращает главную сцену.

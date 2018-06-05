@@ -2,7 +2,14 @@ package parsExchangeRate;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -20,64 +27,85 @@ public class Main {
 	
 	
 	public static void main(String[] args) {
-		DBService service = new DBService();
-		service.printConnectInfo();
-		ExchangeRate exchanger = new ExchangeRate();
-		Parser parser = new Parser();
-		boolean isRun = true;
+//		DBService service = new DBService();
+//		service.printConnectInfo();
+//		ExchangeRate exchanger = new ExchangeRate();
+//		Parser parser = new Parser();
+//		boolean isRun = true;
+		
+		HashMap map = new HashMap();
+		
+		for(int i = 0; i<100; i++) {
+			map.put(Integer.valueOf(i), new Integer(i));
+		} 
+		
+		if(map.containsKey(97))
+			System.out.println(map.get(97));
+		map.remove(97);
+		
+		TreeSet ts = new TreeSet(new ArrayList());
+		
+		ts.comparator();
+		new LinkedList(ts);
 		
 		
-		
-		while(isRun) {
-			
-				try {
-					//получаем веб страницу по getUrlAdress
-					Document doc = parser.getPage(ConstParser.getUrlAdress());
-					Element dateHeader = parser.getElement(doc, ConstParser.getDateHeaderParagraph() );//получаем кусок страницы с датой и временем
-					Elements timeElementBold = dateHeader.select(ConstParser.getTimeTegBold());//получаем время по тегу getTimeTegBold
-					Element currencysParagraph = parser.getElement(doc, ConstParser.getCurrencyQvery());//получаем общее данные по валютам по тегу getCurrencyQvery
-					Elements currencys = currencysParagraph.select(ConstParser.getCurrencyQveryElements());//получаем все элементы содержащие данные о валюте
-					//сохраняем полученные данные о валюте
-					exchanger.setTime(timeElementBold.text());
-					exchanger.setDate(parser.getDateFromString(dateHeader.text()));
-					//сохраняем USD и EUR по индексам элементов 
-					exchanger.setUSD(parser.getCurrencyFromString(currencys.get(ConstParser.getIndexUSD()).text()));
-					exchanger.setEUR(parser.getCurrencyFromString(currencys.get(ConstParser.getIndexEUR()).text()));
-					exchanger.printExchangeRate();//выводим данные в консоль для пользователя
-					//записываем курс валют в базу данных
-					long id = service.addExchangeRate(exchanger.getCurrentDate(),
-							exchanger.getDate(), exchanger.getTime(),  exchanger.getUSD(), exchanger.getEUR());
-					ExchangeRateDataSet exchangeRatePreview = service.getExchangeRateById(id - 1);
-					if(exchangeRatePreview.getUsd()>exchanger.getUSD()) {
-						System.out.println("Доллар опустился до " + exchanger.getUSD());
-					}else
-						if(exchangeRatePreview.getUsd()<exchanger.getUSD()) {
-							System.out.println("Доллар поднялся до " + exchanger.getUSD());
-						}
-						else {
-							System.out.println("Доллар не изменился " + exchanger.getUSD());
-						}
-					List<ExchangeRateDataSet> list = null;
-					list = service.getExchangeRateListRange(1L, 5L);
-					
-					for(ExchangeRateDataSet ds:list) {
-//						
-						System.out.println(ds.toString());
-					}
-					
-					Thread.sleep(ConstParser.getTimeout());
-					
-				}catch(MalformedURLException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					
-					e.printStackTrace();
-				} catch (Exception e) {
-					
-					e.printStackTrace();
-				}
-			
+		Iterator<Integer> itr2 = map.keySet().iterator();
+		while (itr2.hasNext()) {
+		    String key = itr2.next().toString();
+		    System.out.println("Ключ: " + key.toString() + " значение " + map.get(key));
 		}
+		
+		
+//		while(isRun) {
+//			
+//				try {
+//					//получаем веб страницу по getUrlAdress
+//					Document doc = parser.getPage(ConstParser.getUrlAdress());
+//					Element dateHeader = parser.getElement(doc, ConstParser.getDateHeaderParagraph() );//получаем кусок страницы с датой и временем
+//					Elements timeElementBold = dateHeader.select(ConstParser.getTimeTegBold());//получаем время по тегу getTimeTegBold
+//					Element currencysParagraph = parser.getElement(doc, ConstParser.getCurrencyQvery());//получаем общее данные по валютам по тегу getCurrencyQvery
+//					Elements currencys = currencysParagraph.select(ConstParser.getCurrencyQveryElements());//получаем все элементы содержащие данные о валюте
+//					//сохраняем полученные данные о валюте
+//					exchanger.setTime(timeElementBold.text());
+//					exchanger.setDate(parser.getDateFromString(dateHeader.text()));
+//					//сохраняем USD и EUR по индексам элементов 
+//					exchanger.setUSD(parser.getCurrencyFromString(currencys.get(ConstParser.getIndexUSD()).text()));
+//					exchanger.setEUR(parser.getCurrencyFromString(currencys.get(ConstParser.getIndexEUR()).text()));
+//					exchanger.printExchangeRate();//выводим данные в консоль для пользователя
+//					//записываем курс валют в базу данных
+//					long id = service.addExchangeRate(exchanger.getCurrentDate(),
+//							exchanger.getDate(), exchanger.getTime(),  exchanger.getUSD(), exchanger.getEUR());
+//					ExchangeRateDataSet exchangeRatePreview = service.getExchangeRateById(id - 1);
+//					if(exchangeRatePreview.getUsd()>exchanger.getUSD()) {
+//						System.out.println("Доллар опустился до " + exchanger.getUSD());
+//					}else
+//						if(exchangeRatePreview.getUsd()<exchanger.getUSD()) {
+//							System.out.println("Доллар поднялся до " + exchanger.getUSD());
+//						}
+//						else {
+//							System.out.println("Доллар не изменился " + exchanger.getUSD());
+//						}
+//					List<ExchangeRateDataSet> list = null;
+//					list = service.getExchangeRateListRange(1L, 5L);
+//					
+//					for(ExchangeRateDataSet ds:list) {
+////						
+//						System.out.println(ds.toString());
+//					}
+//					
+//					Thread.sleep(ConstParser.getTimeout());
+//					
+//				}catch(MalformedURLException e) {
+//					e.printStackTrace();
+//				} catch (IOException e) {
+//					
+//					e.printStackTrace();
+//				} catch (Exception e) {
+//					
+//					e.printStackTrace();
+//				}
+//			
+//		}
 	}
 
 }

@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parsExchangeRate.view.InterfaceController">
+<AnchorPane prefHeight="220.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parsExchangeRate.view.InterfaceController">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+      <AnchorPane prefHeight="220.0" prefWidth="220.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <GridPane prefHeight="150.0" prefWidth="200.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
                <columnConstraints>
@@ -22,7 +22,7 @@
                </rowConstraints>
                <children>
                   <Button mnemonicParsing="false" text="Diagram" GridPane.rowIndex="3" />
-                  <Button mnemonicParsing="false" text="Get" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Button mnemonicParsing="false" onAction="#getActualExchangeRate" text="Get" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label text="USD" />
                   <Label text="EUR" GridPane.columnIndex="1" />
                   <Label text="Date" GridPane.rowIndex="2" />

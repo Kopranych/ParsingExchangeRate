@@ -22,6 +22,19 @@ public class CurrencyEngine implements Runnable{
 	private boolean isRun = true;
 	private InterfaceController controller;
 	
+	
+	public DBService getService() {
+		return service;
+	}
+
+	public ExchangeRate getExchanger() {
+		return exchanger;
+	}
+
+	public Parser getParser() {
+		return parser;
+	}
+
 	public void stopCurrencyEngine() {
 		this.isRun = false;
 	}
@@ -55,6 +68,7 @@ public class CurrencyEngine implements Runnable{
 					long id = service.addExchangeRate(exchanger.getCurrentDate(),
 							exchanger.getDate(), exchanger.getTime(),  exchanger.getUSD(), exchanger.getEUR());
 					ExchangeRateDataSet exchangeRatePreview = service.getExchangeRateById(id - 1);
+					
 					if(exchangeRatePreview.getUsd()>exchanger.getUSD()) {
 						System.out.println("Доллар опустился до " + exchanger.getUSD());
 					}else
