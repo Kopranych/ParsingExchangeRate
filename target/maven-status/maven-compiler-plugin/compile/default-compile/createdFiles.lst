@@ -1,7 +1,10 @@
 parsExchangeRate\dbService\DBService.class
 parsExchangeRate\model\ConstParser.class
 parsExchangeRate\dbService\dao\ExchangeRateDAO.class
+parsExchangeRate\MainApp.class
 parsExchangeRate\model\ExchangeRate.class
+parsExchangeRate\resource\InterfaceController.class
+parsExchangeRate\control\CurrencyEngine.class
 parsExchangeRate\parser\Parser.class
 parsExchangeRate\dbService\DBException.class
 parsExchangeRate\dbService\dataSet\ExchangeRateDataSet.class

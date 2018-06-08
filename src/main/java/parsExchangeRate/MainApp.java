@@ -19,7 +19,7 @@ import parsExchangeRate.dbService.dataSet.ExchangeRateDataSet;
 import parsExchangeRate.model.ConstParser;
 import parsExchangeRate.model.ExchangeRate;
 import parsExchangeRate.parser.Parser;
-import parsExchangeRate.view.InterfaceController;
+import parsExchangeRate.resources.InterfaceController;
 
 public class MainApp extends Application {
 
@@ -43,8 +43,9 @@ public class MainApp extends Application {
     
     @Override
     public void stop() {
-    	currencyEngine.notify();
+    	
     	currencyEngine.stopCurrencyEngine();
+    	currencyEngine.notify();
     	
     }
 
@@ -55,7 +56,7 @@ public class MainApp extends Application {
         try {
             // Загружаем корневой макет из fxml файла.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
+            loader.setLocation(MainApp.class.getResource("resources/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Отображаем сцену, содержащую корневой макет.
@@ -75,7 +76,7 @@ public class MainApp extends Application {
         try {
             // Загружаем интерфейс.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/Scene.fxml"));
+            loader.setLocation(MainApp.class.getResource("resources/Scene.fxml"));
             AnchorPane interfaceApp = (AnchorPane) loader.load();
 
             // Помещаем интерфейс в центр корневого макета.

@@ -12,7 +12,7 @@ import parsExchangeRate.dbService.dataSet.ExchangeRateDataSet;
 import parsExchangeRate.model.ConstParser;
 import parsExchangeRate.model.ExchangeRate;
 import parsExchangeRate.parser.Parser;
-import parsExchangeRate.view.InterfaceController;
+import parsExchangeRate.resources.InterfaceController;
 
 public class CurrencyEngine implements Runnable{
 
