@@ -68,6 +68,7 @@ public class CurrencyEngine implements Runnable{
 					long id = service.addExchangeRate(exchanger.getCurrentDate(),
 							exchanger.getDate(), exchanger.getTime(),  exchanger.getUSD(), exchanger.getEUR());
 					ExchangeRateDataSet exchangeRatePreview = service.getExchangeRateById(id - 1);
+					ConstParser.setIdLastItemAdded(id);
 					
 					if(exchangeRatePreview.getUsd()>exchanger.getUSD()) {
 						System.out.println("Доллар опустился до " + exchanger.getUSD());

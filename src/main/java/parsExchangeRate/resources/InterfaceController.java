@@ -2,6 +2,9 @@ package parsExchangeRate.resources;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,6 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import parsExchangeRate.MainApp;
 import parsExchangeRate.control.CurrencyEngine;
+import parsExchangeRate.dbService.DBException;
+import parsExchangeRate.dbService.DBService;
 import parsExchangeRate.dbService.dataSet.ExchangeRateDataSet;
 import parsExchangeRate.model.ConstParser;
 import parsExchangeRate.model.ExchangeRate;
@@ -59,9 +64,6 @@ public class InterfaceController {
      */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-
-        // Добавление в таблицу данных из наблюдаемого списка
-//        personTable.setItems(mainApp.getPersonData());
     }
     
     public void setCurrencyEngene(CurrencyEngine currencyEngine) {
@@ -94,6 +96,7 @@ public class InterfaceController {
 			//записываем курс валют в базу данных
 			long id = currencyEngine.getService().addExchangeRate(currencyEngine.getExchanger().getCurrentDate(),
 					currencyEngine.getExchanger().getDate(), currencyEngine.getExchanger().getTime(),  currencyEngine.getExchanger().getUSD(), currencyEngine.getExchanger().getEUR());
+			ConstParser.setIdLastItemAdded(id);
 			ExchangeRateDataSet exchangeRatePreview = currencyEngine.getService().getExchangeRateById(id - 1);
 			
 			if(exchangeRatePreview.getUsd()>currencyEngine.getExchanger().getUSD()) {
@@ -120,4 +123,29 @@ public class InterfaceController {
 		}
     }
     
+    
+    
+    @FXML
+    private void getChart() {
+    	try {
+    		DBService service = currencyEngine.getService();
+    		long tempId = ConstParser.getIdLastItemAdded();
+    		ArrayList<ExchangeRateDataSet> list = 
+    				(ArrayList<ExchangeRateDataSet>) service.getExchangeRateListRange(tempId - 100, tempId );
+    			
+    			
+    			Iterator itr = list.iterator();
+    	    	while(itr.hasNext()) {
+    	    		ExchangeRateDataSet tempDataSet = (ExchangeRateDataSet) itr.next();
+    	    		System.out.println(tempDataSet.toString());
+    	    	}
+       		mainApp.showCharts(list);
+    	} catch (DBException e) {
+			
+			e.printStackTrace();
+		}
+    	
+    	
+    	
+    }
 }

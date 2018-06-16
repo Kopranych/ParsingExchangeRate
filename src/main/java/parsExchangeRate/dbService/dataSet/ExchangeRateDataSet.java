@@ -129,6 +129,7 @@ public class ExchangeRateDataSet implements Serializable {
                 ", date='" + date + '\'' +
                 ", usd='" + usd + '\'' +
                 ", eur='" + eur + '\'' +
+                ", systemdate='" + systemDate + '\''+
                 '}';
     }
 	

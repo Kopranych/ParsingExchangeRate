@@ -3,6 +3,7 @@ package parsExchangeRate;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -14,6 +15,7 @@ import java.util.TreeSet;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.junit.Test;
 
 import parsExchangeRate.dbService.DBException;
 import parsExchangeRate.dbService.DBService;
@@ -33,28 +35,95 @@ public class Main {
 //		Parser parser = new Parser();
 //		boolean isRun = true;
 		
-		HashMap map = new HashMap();
+		List<Number> num;
+		List<Integer> in = Arrays.asList(2,3,4);
 		
-		for(int i = 0; i<100; i++) {
-			map.put(Integer.valueOf(i), new Integer(i));
-		} 
-		
-		if(map.containsKey(97))
-			System.out.println(map.get(97));
-		map.remove(97);
-		
-		TreeSet ts = new TreeSet(new ArrayList());
-		
-		ts.comparator();
-		new LinkedList(ts);
-		
-		
-		Iterator<Integer> itr2 = map.keySet().iterator();
-		while (itr2.hasNext()) {
-		    String key = itr2.next().toString();
-		    System.out.println("Ключ: " + key.toString() + " значение " + map.get(key));
-		}
-		
+		System.out.println(isPowerOfTwo(0));
+
+            boolean ffff = booleanExpression(false, false, false, false);
+            boolean ffft = booleanExpression(false, false, false, true);
+            boolean fftf = booleanExpression(false, false, true, false);
+            boolean fftt  = booleanExpression(false, false, true, true); //Searching for this
+
+            boolean ftff = booleanExpression(false, true, false, false);
+            boolean ftft = booleanExpression(false, true, false, true); //Searching for this
+            boolean fttf = booleanExpression(false, true, true, false); //Searching for this
+            boolean fttt = booleanExpression(false, true, true, true);
+
+            boolean tfff = booleanExpression(true, false, false, false);
+            boolean tfft = booleanExpression(true, false, false, true); //Searching for this
+            boolean tftf = booleanExpression(true, false, true, false); //Searching for this
+            boolean tftt = booleanExpression(true, false, true, true);
+
+            boolean ttff = booleanExpression(true, true, false, false); //Searching for this
+            boolean ttft = booleanExpression(true, true, false, true);
+            boolean tttf = booleanExpression(true, true, true, false);
+            boolean tttt = booleanExpression(true, true, true, true);
+
+            System.out.println("ffff " + ffff);
+            System.out.println("ffft " + ffft);
+            System.out.println("fftf " + fftf);
+            System.out.println("fftt " + fftt + " <- ");
+
+            System.out.println("ftff " + ftff);
+            System.out.println("ftft " + ftft + " <- ");
+            System.out.println("fttf " + fttf + " <- ");
+            System.out.println("fttt " + fttt);
+
+            System.out.println("tfff " + tfff);
+            System.out.println("tfft " + tfft + " <- ");
+            System.out.println("tftf " + tftf + " <- ");
+            System.out.println("tftt " + tftt);
+
+            System.out.println("ttff " + ttff + " <- ");
+            System.out.println("ttft " + ttft);
+            System.out.println("tttf " + tttf);
+            System.out.println("tttt " + tttt);
+
+
+            boolean allCorrectAreTrue = fftt & ftft & fttf & tfft & tftf & ttff;
+
+            boolean allIncorrectAreTrue = ffff | ffft | fftf | ftff | fttt |  tfff | tftt | ttft | tttf | tttt;
+
+            boolean correctAnswerCondition = allCorrectAreTrue & !allIncorrectAreTrue;
+
+            if (correctAnswerCondition) {
+                System.out.println(" You have found the correct answer!!! :) ");
+            } else {
+                System.out.println(" Correct answer still to be found... :( ");
+            }
+
+
+        }
+
+        @Test
+        public static boolean booleanExpression(boolean a, boolean b, boolean c, boolean d) {
+            return ( (!a) & (!b) & c & d ) ^  ( a & b & (!c) & (!d) ) ^((!a) & b & (!c) & d)^((!a)& b &c&(!d))^(a & (!b)& (!c)& d)^(a&(!b)&c&(!d));
+        }
+    
+        public static boolean isPowerOfTwo(int value) {
+            int temp = Math.abs(value);
+            boolean isPowerOfTwo = false;
+            if(temp == 1) {
+            	isPowerOfTwo = true;
+            }else if(temp == 0){
+            	isPowerOfTwo = false;
+            }else {
+            	while(temp != 2){
+            		temp = temp/2;
+            		if(temp%2!=0)
+            		{
+            			isPowerOfTwo = false;
+            			break;
+            		}
+            	}
+            	isPowerOfTwo = true;
+            	
+            }     
+            return isPowerOfTwo; // you implementation here
+        }
+        
+        
 		
 //		while(isRun) {
 //			
@@ -106,6 +175,6 @@ public class Main {
 //				}
 //			
 //		}
-	}
+	
 
 }

@@ -13,8 +13,18 @@ public class ConstParser {
 	private static final int indexUSD = 0;
 	private static final int indexEUR = 1;
 	private static final long timeout = 600_000L;
+	private static long idLastItemAdded;
 	
 	
+	
+	public static long getIdLastItemAdded() {
+		return idLastItemAdded;
+	}
+
+	public static void setIdLastItemAdded(long idLastItemAdded) {
+		ConstParser.idLastItemAdded = idLastItemAdded;
+	}
+
 	public static long getTimeout() {
 		return timeout;
 	}

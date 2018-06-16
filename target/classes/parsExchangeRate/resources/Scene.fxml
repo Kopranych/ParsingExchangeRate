@@ -21,7 +21,7 @@
                   <RowConstraints maxHeight="37.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" text="Diagram" GridPane.rowIndex="3" />
+                  <Button mnemonicParsing="false" onAction="#getChart" text="Chart" GridPane.rowIndex="3" />
                   <Button mnemonicParsing="false" onAction="#getActualExchangeRate" text="Get" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label text="USD" />
                   <Label text="EUR" GridPane.columnIndex="1" />
