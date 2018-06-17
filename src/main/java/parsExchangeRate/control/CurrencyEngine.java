@@ -51,6 +51,8 @@ public class CurrencyEngine implements Runnable{
 		while(isRun) {
 			
 				try {
+					ConstParser.setMaxValueEur(service.getMaxMinValueEurUsd(ConstParser.getIndexEUR()));
+					ConstParser.setMinValueUsd(service.getMaxMinValueEurUsd(ConstParser.getIndexUSD()));
 					//получаем веб страницу по getUrlAdress
 					Document doc = parser.getPage(ConstParser.getUrlAdress());
 					Element dateHeader = parser.getElement(doc, ConstParser.getDateHeaderParagraph() );//получаем кусок страницы с датой и временем

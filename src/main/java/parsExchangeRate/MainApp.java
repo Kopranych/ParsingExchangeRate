@@ -101,11 +101,7 @@ public class MainApp extends Application {
 
     public void showCharts(List<ExchangeRateDataSet> list) {
     	
-//    	try {
-//    		FXMLLoader loader = new FXMLLoader();
-//        	loader.setLocation(MainApp.class.getResource("resources/DialogChart.fxml"));
-//			AnchorPane page = (AnchorPane)loader.load();
-			
+
 			// Создаём диалоговое окно Stage.
 	        Stage dialogStage = new Stage();
 	        dialogStage.setTitle("Chart");
@@ -113,8 +109,11 @@ public class MainApp extends Application {
 	        dialogStage.initOwner(primaryStage);
 
 	        
-	        NumberAxis x = new NumberAxis();
-	        NumberAxis y = new NumberAxis();
+	        NumberAxis x = new NumberAxis(ConstParser.getIdLastItemAdded()-100,
+	        		ConstParser.getIdLastItemAdded()-50, 
+	        		10);
+	        NumberAxis y = new NumberAxis(ConstParser.getMinValueUsd()-2,
+	        		ConstParser.getMaxValueEur()+2, 1);
 	        //область для линейного графика(полотно)
 	        LineChart<Number, Number> numberLineChart = new LineChart<Number, Number>(x,y);
 	        numberLineChart.setTitle("ExchangeRate");
@@ -143,10 +142,7 @@ public class MainApp extends Application {
 	        
 	     // Отображаем диалоговое окно и ждём, пока пользователь его не закроет
 	        dialogStage.showAndWait();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+
     }
     
     /**

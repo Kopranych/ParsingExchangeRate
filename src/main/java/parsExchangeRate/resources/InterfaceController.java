@@ -131,14 +131,16 @@ public class InterfaceController {
     		DBService service = currencyEngine.getService();
     		long tempId = ConstParser.getIdLastItemAdded();
     		ArrayList<ExchangeRateDataSet> list = 
-    				(ArrayList<ExchangeRateDataSet>) service.getExchangeRateListRange(tempId - 100, tempId );
+    				(ArrayList<ExchangeRateDataSet>) service
+    				.getExchangeRateListRange(tempId - 90, tempId - 55 );
     			
-    			
+    		System.out.println(service.getMaxMinValueEurUsd(ConstParser.getIndexEUR()).toString());
+    		System.out.println(service.getMaxMinValueEurUsd(ConstParser.getIndexUSD()).toString());
     			Iterator itr = list.iterator();
-    	    	while(itr.hasNext()) {
-    	    		ExchangeRateDataSet tempDataSet = (ExchangeRateDataSet) itr.next();
-    	    		System.out.println(tempDataSet.toString());
-    	    	}
+//    	    	while(itr.hasNext()) {
+//    	    		ExchangeRateDataSet tempDataSet = (ExchangeRateDataSet) itr.next();
+//    	    		System.out.println(tempDataSet.toString());
+//    	    	}
        		mainApp.showCharts(list);
     	} catch (DBException e) {
 			

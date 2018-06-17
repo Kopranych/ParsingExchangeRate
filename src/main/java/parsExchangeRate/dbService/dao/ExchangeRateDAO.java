@@ -9,6 +9,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 
@@ -69,11 +70,28 @@ public class ExchangeRateDAO {
      *
      * @param Принеимает usd
      * @throws HibernateException
-     * @return возвращает строку из таблицы в базе в виде обьекта ExchangeRateDataSet
+     * @return возвращает id для которого равно значение usd
      */
     public long getExchangeRateId(String usd) throws HibernateException {
         Criteria criteria = session.createCriteria(ExchangeRateDataSet.class);
         return ((ExchangeRateDataSet) criteria.add(Restrictions.eq("usd", usd)).uniqueResult()).getId();
+    }
+    
+    public Double getMaxEur() {
+        Criteria criteria = session.createCriteria(ExchangeRateDataSet.class);
+        criteria.setProjection(Projections.max("eur"));
+        Double maxEur = (Double)criteria.uniqueResult();
+        return 	maxEur;
+//        return (Collection<ExchangeRateDataSet>) session.createSQLQuery("select *\r\n" + 
+//        				"from exchangerate\r\n" + 
+//        				"where usd in(select max(USD) from exchangerate)").list();
+    }
+    
+    public Double getMinUsd() {
+        Criteria criteria = session.createCriteria(ExchangeRateDataSet.class);
+        criteria.setProjection(Projections.min("usd"));
+        Double minUsd = (Double)criteria.uniqueResult();
+        return 	minUsd;
     }
 
     /**

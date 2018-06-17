@@ -1,6 +1,7 @@
 package parsExchangeRate.dbService;
 
 import java.sql.Connection;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import parsExchangeRate.dbService.dao.ExchangeRateDAO;
 import parsExchangeRate.dbService.dataSet.ExchangeRateDataSet;
+import parsExchangeRate.model.ConstParser;
 
 public class DBService {
 	private static final String hibernate_show_sql = "false";
@@ -51,6 +53,30 @@ public class DBService {
         	session = sessionFactory.openSession();
             ExchangeRateDAO dao = new ExchangeRateDAO(session);
             dataSet = dao.get(id);
+         
+        } catch (HibernateException e) {
+            throw new DBException(e);
+        }finally {
+        	if(session != null&& session.isOpen()) {
+        		session.close();
+        	}
+        }
+        return dataSet;
+    }
+    
+    public Double getMaxMinValueEurUsd(int indexValut) throws DBException {
+    	
+    	Session session = null;
+    	Double dataSet;
+        try {
+        	session = sessionFactory.openSession();
+            ExchangeRateDAO dao = new ExchangeRateDAO(session);
+            
+            if(indexValut == ConstParser.getIndexEUR()) {
+            	dataSet = dao.getMaxEur();
+            }else {
+            	dataSet = dao.getMinUsd();
+            }            
          
         } catch (HibernateException e) {
             throw new DBException(e);
