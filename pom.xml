@@ -51,6 +51,16 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.telegram</groupId>
+      <artifactId>telegrambots</artifactId>
+      <version>3.6.1</version>
+	</dependency>
+	<dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.1.1</version>
+     </dependency>
   </dependencies>
 
   <build>
@@ -68,7 +78,7 @@
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
                     <outputDirectory>${basedir}</outputDirectory>
-                    <finalName>parserExchangeRate</finalName>
+                    <finalName>ExchangeRate</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>

@@ -1,22 +1,6 @@
 package parsExchangeRate;
 
-import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import org.jsoup.nodes.Document;
-import org.junit.Test;
-
-import parsExchangeRate.control.CurrencyEngine;
-import parsExchangeRate.dbService.DBException;
-import parsExchangeRate.dbService.DBService;
-import parsExchangeRate.dbService.dataSet.ExchangeRateDataSet;
-import parsExchangeRate.model.ConstParser;
-import parsExchangeRate.parser.Parser;
-import parsExchangeRate.resources.InterfaceController;
 
 /**
  * Unit test for simple App.
@@ -28,28 +12,28 @@ public class AppTest
      * @throws IOException 
      * @throws MalformedURLException 
      */
-    @Test
-    public void shouldAnswerWithTrue() throws MalformedURLException, IOException
-    {	
-    	ArrayList<ExchangeRateDataSet> list;
-    	DBService service = new CurrencyEngine(new InterfaceController()).getService();
-		long tempId = ConstParser.getIdLastItemAdded();
-    	try {
-			list = (ArrayList<ExchangeRateDataSet>) service.getExchangeRateListRange(tempId, tempId - 10);
-			
-			Iterator itr = list.iterator();
-	    	while(itr.hasNext()) {
-	    		ExchangeRateDataSet tempDataSet = (ExchangeRateDataSet) itr.next();
-	    		System.out.println(tempDataSet.toString());
-	    	}
-    	} catch (DBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-    	
-        assertTrue( true );
-    }
+//    @Test
+//    public void shouldAnswerWithTrue() throws MalformedURLException, IOException
+//    {	
+//    	ArrayList<ExchangeRateDataSet> list;
+//    	DBService service = new CurrencyEngine(new InterfaceController()).getService();
+//		long tempId = ConstParser.getIdLastItemAdded();
+//    	try {
+//			list = (ArrayList<ExchangeRateDataSet>) service.getExchangeRateListRange(tempId, tempId - 10);
+//			
+//			Iterator itr = list.iterator();
+//	    	while(itr.hasNext()) {
+//	    		ExchangeRateDataSet tempDataSet = (ExchangeRateDataSet) itr.next();
+//	    		System.out.println(tempDataSet.toString());
+//	    	}
+//    	} catch (DBException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//    	
+//    	
+//        assertTrue( true );
+//    }
     
     
     
@@ -112,13 +96,39 @@ public class AppTest
 
         }
 
-        @Test
+//        @Test
         public static boolean booleanExpression(boolean a, boolean b, boolean c, boolean d) {
             return ( (!a) & (!b) & c & b ) ^  ( a & b & (!c) & (!d) ) ^((!a) & b & (!c) & d)^((!a)& b &c&(!d))^(a & (!b)& (!c)& d)^(a&(!b)&c&(!d));
         }
     }
+    
+    
+    
+    public static void main(String[] args){
+    	isPalindrome("Прове?рка!!!");
+    }
 
+    @SuppressWarnings("unlikely-arg-type")
+//	@Test
+    public static boolean isPalindrome(String text) {
+    	
+    	String cleanString = text.replaceAll("[^a-zA-Z0-9]","");
+    	text = cleanString.toLowerCase();
+        StringBuilder tmp = new StringBuilder(text);
+        tmp = tmp.reverse();
+        cleanString = tmp.toString();
+        
+        return cleanString.equals(text);
+    }
 
-
-
+//    public static BigInteger factorial(int value) {
+//    	
+//    	if(value == 1) {
+//    		return new BigInteger(1);
+//    		
+//    	}
+//    	int i = factorial(value - 1);
+//        return i*value; // your implementation here
+//    }
+    
 }
